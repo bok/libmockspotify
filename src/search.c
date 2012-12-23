@@ -59,6 +59,10 @@ DEFINE_READER(search, num_albums, int);
 DEFINE_ARRAY_READER(search, album, sp_album *);
 DEFINE_READER(search, total_albums, int);
 
+DEFINE_READER(search, num_playlists, int);
+DEFINE_ARRAY_READER(search, playlist, sp_playlist *);
+DEFINE_READER(search, total_playlists, int);
+
 DEFINE_READER(search, num_tracks, int);
 DEFINE_ARRAY_READER(search, track, sp_track *);
 DEFINE_READER(search, total_tracks, int);
