@@ -6,7 +6,8 @@ mocksp_search_create(sp_error error, const char *query, const char *did_you_mean
                      int total_tracks, int num_tracks, const sp_track **tracks,
                      int total_albums, int num_albums, const sp_album **albums,
                      int total_artists, int num_artists, const sp_artist **artists,
-                     int total_playlists, int num_playlists, const sp_playlist **playlists,
+                     int total_playlists, int num_playlists,
+                     sp_search_playlist_t *playlists,
                      search_complete_cb *callback, void *userdata)
 {
   sp_search *search = ALLOC(sp_search);
@@ -32,12 +33,12 @@ mocksp_search_create(sp_error error, const char *query, const char *did_you_mean
   search->tracks  = ALLOC_N(sp_track *, num_tracks);
   search->artists = ALLOC_N(sp_artist *, num_artists);
   search->albums  = ALLOC_N(sp_album *, num_artists);
-  search->playlists = ALLOC_N(sp_playlist *, num_playlists);
+  search->playlists = ALLOC_N(sp_search_playlist_t, num_playlists);
 
   MEMCPY_N(search->tracks, tracks, sp_track *, num_tracks);
   MEMCPY_N(search->artists, artists, sp_artist *, num_artists);
   MEMCPY_N(search->albums, albums, sp_album *, num_albums);
-  MEMCPY_N(search->playlists, playlists, sp_playlist *, num_playlists);
+  MEMCPY_N(search->playlists, playlists, sp_search_playlist_t, num_playlists);
 
   search->callback = callback;
   search->userdata = userdata;
@@ -60,7 +61,9 @@ DEFINE_ARRAY_READER(search, album, sp_album *);
 DEFINE_READER(search, total_albums, int);
 
 DEFINE_READER(search, num_playlists, int);
-DEFINE_ARRAY_READER(search, playlist, sp_playlist *);
+DEFINE_ARRAY_MEMBER_READER(search, playlist, name, const char *);
+DEFINE_ARRAY_MEMBER_READER(search, playlist, uri, const char *);
+DEFINE_ARRAY_MEMBER_READER(search, playlist, image_uri, const char *);
 DEFINE_READER(search, total_playlists, int);
 
 DEFINE_READER(search, num_tracks, int);
@@ -91,4 +94,11 @@ bool
 sp_search_is_loaded(sp_search *search)
 {
   return search->error == SP_ERROR_OK;
+}
+
+sp_playlist *
+sp_search_playlist(sp_search *search, int index)
+{
+  if (index >= search->num_playlists) return NULL;
+  return search->playlists[index].self;
 }

@@ -176,6 +176,14 @@ struct sp_playlistcontainer
   void *userdata;
 };
 
+/* Custom struct */
+typedef struct sp_search_playlist {
+    sp_playlist *self;
+    char *name;
+    char *uri;
+    char *image_uri;
+} sp_search_playlist_t;
+
 struct sp_search
 {
   int total_tracks;
@@ -192,7 +200,7 @@ struct sp_search
 
   int total_playlists;
   int num_playlists;
-  sp_playlist **playlists;
+  sp_search_playlist_t *playlists;
 
   char *query;
   char *did_you_mean;
@@ -354,7 +362,13 @@ sp_toplistbrowse *
 mocksp_toplistbrowse_create(sp_error, int, int, sp_artist **, int, sp_album **, int, sp_track **, toplistbrowse_complete_cb *, void *);
 
 sp_search *
-mocksp_search_create(sp_error, const char *, const char *, int, int, const sp_track **, int, int, const sp_album **, int, int, const sp_artist **, int, int, const sp_playlist **, search_complete_cb *, void *);
+mocksp_search_create(sp_error error, const char *query, const char *did_you_mean,
+                     int total_tracks, int num_tracks, const sp_track **tracks,
+                     int total_albums, int num_albums, const sp_album **albums,
+                     int total_artists, int num_artists, const sp_artist **artists,
+                     int total_playlists, int num_playlists,
+                     sp_search_playlist_t *playlists,
+                     search_complete_cb *callback, void *userdata);
 
 /* custom accessors for testing libmockspotify state */
 bool
