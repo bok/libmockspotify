@@ -45,6 +45,20 @@ https://github.com/mopidy/libmockspotify/contributors
 Changes
 =======
 
+v0.4.0 (in development)
+-----------------------
+
+Supports libspotify 12
+
+- Added implementation for:
+
+  - ``sp_search_num_playlists()``
+  - ``sp_search_total_playlists()``
+  - ``sp_search_playlist()``
+  - ``sp_search_playlist_name()``
+  - ``sp_search_playlist_uri()``
+  - ``sp_search_playlist_image_uri()``
+
 v0.3.1 (2012-12-04)
 -------------------
 
