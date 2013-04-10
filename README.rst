@@ -58,6 +58,9 @@ Supports libspotify 12
   - ``sp_search_playlist_name()``
   - ``sp_search_playlist_uri()``
   - ``sp_search_playlist_image_uri()``
+  - ``sp_session_user_name()``
+
+- Bumped SONAME to 12 to track libspotify's major API version number.
 
 v0.3.1 (2012-12-04)
 -------------------
