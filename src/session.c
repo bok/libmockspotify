@@ -308,3 +308,9 @@ sp_session_userdata(sp_session *session)
 {
   return session->config.userdata;
 }
+
+const char *
+sp_session_user_name(sp_session *session)
+{
+  return session->user->canonical_name;
+}
