@@ -185,7 +185,7 @@ sp_session_logout(sp_session *session)
 }
 
 sp_error
-sp_session_flush_caches(sp_session *session)
+sp_session_flush_caches(sp_session *UNUSED(session))
 {
   // no op
   return SP_ERROR_OK;
